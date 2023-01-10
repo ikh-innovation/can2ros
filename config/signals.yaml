@@ -24,75 +24,60 @@
 
 signals:
 
-  names: ["em_speed", "em_torque_percent", "em_torque_reference", "battery_current", "battery_voltage"]
+  names: ["battery_voltage", "battery_current", "battery_soc", "battery_soh"]
 
-
-  # GPM13
-
-  em_speed:
-    topic: "/car/em_speed"
-    direction: "both"
-    id: 0x250
-    position: 24
-    length: 16
-    isSigned: false
-    resolution: 0.125
-    offset: 0.0
-    period: 0.01
-    min: 0.0
-    max: 8031.88
-    # rpm
-
-  em_torque_percent:
-    topic: "/car/em_torque_percent"
+  battery_voltage:
+    topic: "/pestnu/battery_voltage"
     direction: "publish"
-    id: 0x250
-    position: 16
-    length: 8
-    isSigned: false
-    resolution: 1.0
-    offset: -125.0
-    min: -125.0
-    max: 125.0
-    # %
-
-  # GPM15
-
-  em_torque_reference:
-    topic: "/car/em_torque_reference"
-    direction: "publish"
-    id: 0x251
-    position: 40
-    length: 16
-    isSigned: false
-    resolution: 1.0
-    offset: 0.0
-    min: 0.0
-    max: 64255
-    # Nm
-
-  # EMG2 ibat, v, soc
-
-  battery_current:
-    topic: "/car/battery_current"
-    direction: "publish"
-    id: 0x740
+    id: 0x780
     position: 0
     length: 16
     isSigned: false
-    resolution: 0.05
-    offset: -1638.38
-    # A
+    resolution: 0.010
+    offset: 0.0
+    period: 0.2
+    min: 0.0
+    max: 6000
+    # in 10 mV
 
-  battery_voltage:
-    topic: "/car/battery_voltage"
+  battery_current:
+    topic: "/pestnu/battery_current"
     direction: "publish"
-    id: 0x740
+    id: 0x780
     position: 16
     length: 16
-    isSigned: false
-    resolution: 0.025
+    isSigned: true
+    resolution: 0.010
     offset: 0.0
-    min: 0.0
-    max: 1638.38
-    # V
+    period: 0.2
+    min: -7200
+    max: 7200
+    # in 10 mA
+
+  battery_soc:
+    topic: "/pestnu/battery_soc"
+    direction: "publish"
+    id: 0x780
+    position: 32
+    length: 16
+    isSigned: false
+    resolution: 0.01
+    offset: 0.0
+    period: 0.2
+    min: 0
+    max: 10000
+    # in 0.01 %
+
+  battery_soh:
+    topic: "/pestnu/battery_soh"
+    direction: "publish"
+    id: 0x780
+    position: 48
+    length: 16
+    isSigned: false
+    resolution: 0.01
+    offset: 0.0
+    period: 0.2
+    min: 0
+    max: 10000
+    # in 0.01 %
